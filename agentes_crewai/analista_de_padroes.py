@@ -1,19 +1,45 @@
 """Agent responsible for analysing code patterns."""
 
-from typing import List
+from typing import Dict, List
 from pathlib import Path
+
+from crewai.validation import is_valid_test_file
 
 
 class AnalistaDePadroes:
-    """Naive pattern analyser that counts TODO comments."""
+    """Analyse test files and collect simple quality metrics."""
 
-    def run(self, files: List[Path]) -> dict:
-        todos = 0
+    def run(self, files: List[Path]) -> Dict[str, int]:
+        """Return a dictionary with metrics extracted from ``files``.
+
+        Parameters
+        ----------
+        files:
+            List of paths to analyse.
+        """
+
+        metrics = {
+            "todo_count": 0,
+            "test_file_count": 0,
+            "assert_count": 0,
+            "mock_usage": 0,
+        }
+
         for file in files:
+            path = Path(file)
             try:
-                for line in Path(file).read_text().splitlines():
-                    if "TODO" in line:
-                        todos += 1
+                text = path.read_text()
             except Exception:
                 continue
-        return {"todo_count": todos}
+
+            metrics["todo_count"] += text.count("TODO")
+
+            if is_valid_test_file(path):
+                metrics["test_file_count"] += 1
+
+            metrics["assert_count"] += text.count("assert")
+
+            if any(keyword in text for keyword in ["Mock", "mock", "patch"]):
+                metrics["mock_usage"] += 1
+
+        return metrics
