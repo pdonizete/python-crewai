@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -14,3 +15,6 @@ class Tool(ABC):
     def use(self, *args: Any, **kwargs: Any) -> Any:
         """Invoke the tool and return a result."""
         raise NotImplementedError
+=======
+# Placeholder for tool definitions
+>>>>>>> main

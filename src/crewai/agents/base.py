@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -30,3 +31,6 @@ class Agent(ABC):
     def act(self, task: Task) -> Any:
         """Execute the given task and return a result."""
         raise NotImplementedError
+=======
+# Placeholder for agent definitions
+>>>>>>> main

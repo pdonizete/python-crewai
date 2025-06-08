@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -14,3 +15,6 @@ class Task(ABC):
     def execute(self) -> Any:
         """Run the task and return a result."""
         raise NotImplementedError
+=======
+# Placeholder for task implementations
+>>>>>>> main
